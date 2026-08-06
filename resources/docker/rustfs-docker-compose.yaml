@@ -1,0 +1,31 @@
+name: rustfs-stack
+
+services:
+  rustfs:
+    image: rustfs/rustfs:1.0.0-alpha.72
+    container_name: rustfs
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      RUSTFS_ACCESS_KEY: rustfsadmin
+      RUSTFS_SECRET_KEY: rustfsadmin
+      RUSTFS_CONSOLE_ENABLE: "true"
+    command: >-
+      --address :9000
+      --console-enable
+      --access-key rustfsadmin
+      --secret-key rustfsadmin
+      /data
+    volumes:
+      - rustfs_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9000/minio/health/live || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  rustfs_data:

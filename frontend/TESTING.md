@@ -14,7 +14,7 @@ server: {
   port: 5173,
   proxy: {
     "/api": {
-      target: "http://localhost:8080",
+      target: "http://localhost:9090",
       changeOrigin: true,
       secure: false
     }
@@ -26,7 +26,7 @@ server: {
 
 #### 1. 确认后端服务运行
 ```bash
-curl http://localhost:8080/api/ragent/knowledge-base
+curl http://localhost:9090/api/ragent/knowledge-base
 # 应该返回：{"code":"A000001","message":"未登录或登录已过期",...}
 # 这说明后端服务正常，只是需要登录
 ```
@@ -80,7 +80,7 @@ UPDATE t_user SET role = 'admin' WHERE username = 'your_username';
 
 | 前端请求 | 代理后 | 后端实际路径 |
 |---------|--------|-------------|
-| /api/ragent/knowledge-base | http://localhost:8080/api/ragent/knowledge-base | /knowledge-base (context-path已包含/api/ragent) |
+| /api/ragent/knowledge-base | http://localhost:9090/api/ragent/knowledge-base | /knowledge-base (context-path已包含/api/ragent) |
 
 ### 网络请求检查
 
@@ -98,7 +98,7 @@ UPDATE t_user SET role = 'admin' WHERE username = 'your_username';
 
 ### 当前状态
 
-✅ 后端服务运行中：http://localhost:8080
+✅ 后端服务运行中：http://localhost:9090
 ✅ 前端服务运行中：http://localhost:5174
 ✅ 代理配置已添加
 ✅ 可以开始测试
